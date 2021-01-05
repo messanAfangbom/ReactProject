@@ -1,9 +1,9 @@
-import logo from './logo.svg';
 import './App.css';
 import { Login } from './login/login';
 import { BrowserRouter as Router, Redirect, Route, Switch } from
   'react-router-dom';
 import { Homepage } from './homepage/homepage';
+import { Verset } from './versetDuJour/verset';
 function App() {
   return (
     <Router>
@@ -15,6 +15,11 @@ function App() {
       <Route exact path='/Page_Accueil' render={props => (
         <div className="App">
           <Homepage />
+        </div>)}>
+      </Route>
+      <Route exact path='/Verset_du_jour' render={props => (
+        <div className="App">
+          <Verset />
         </div>)}>
       </Route>
     </Router>
