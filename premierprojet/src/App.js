@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Redirect, Route, Switch } from
   'react-router-dom';
 import { Homepage } from './homepage/homepage';
 import { Verset } from './versetDuJour/verset';
+import { MessageDuJour } from './messageDuJour/messageDuJour';
 function App() {
   return (
     <Router>
@@ -20,6 +21,11 @@ function App() {
       <Route exact path='/Verset_du_jour' render={props => (
         <div className="App">
           <Verset />
+        </div>)}>
+      </Route>
+      <Route exact path='/Message_du_jour' render={props => (
+        <div className="App">
+          <MessageDuJour />
         </div>)}>
       </Route>
     </Router>
