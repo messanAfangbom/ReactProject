@@ -1,26 +1,52 @@
-import React, { useState } from 'react';
-import { TextInput, Button, Text, View, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { TextInput, Button, Text, View, StyleSheet, Alert } from 'react-native';
 
+const RenderCustomizeText = (props) => {
+    return (
+        <Text style={{color:'red'}}>{props.text}</Text>
+    )
+}
 
 const LoginComponent = () => {
-    const [email, setEmail] = useState('Votre username');
-    const [password, setPassword] = useState('Votre password');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [shouldShow, setShouldShow] = useState('false');
+
+    const checkdata = () => {
+        if (password === 'messan' && email === 'messanafan@gmail.com') {
+            Alert.alert('Identifiants sont ok');
+            console.log("console");
+        }
+    }
+
+    useEffect(() => {
+        if (!email.trim()|| !password.trim()) {
+            setShouldShow(true);
+        }
+        else
+        {
+            setShouldShow(false);
+        }
+    })
 
     return (
-        <View >
+        <View style={styles.componentGeneral}>
             <View>
                 <Text style={[styles.bold, { fontSize: 20 }]} >Bonjour !</Text>
                 <Text>Connectez-vous pour découvrir toutes nos fonctionnalités.</Text>
             </View>
             <View style={styles.body}>
                 <Text style={styles.bold}>Email</Text>
-                <TextInput style={styles.entryStyle} />
+                <TextInput style={shouldShow ? [styles.entryStyle,{borderColor:'red'}]: [styles.entryStyle,{borderColor:'gray'}]} onChangeText={text => setEmail(text)} />
+                {shouldShow ? (<RenderCustomizeText text="Veuillez saisir un email" />) : null}
 
                 <Text style={styles.bold}>Mot de Passe</Text>
-                <TextInput style={styles.entryStyle}></TextInput>
+                <TextInput style={shouldShow ? [styles.entryStyle,{borderColor:'red'}]: [styles.entryStyle,{borderColor:'gray'}]} value={password} onChangeText={text => setPassword(text)}></TextInput>
+                {shouldShow ? (<RenderCustomizeText text="Veuillez saisir un mot de passe" />) : null}
 
                 <Text>Mot de passe oublié</Text>
-                <Button title="Se connecter" />
+                <Button title="Se connecter"
+                    onPress={checkdata} />
             </View>
             <View style={styles.foot}>
                 <Text>Envie de nous rejoindre ? Créer un compte</Text>
@@ -29,17 +55,25 @@ const LoginComponent = () => {
     )
 }
 
+
+
 const styles = StyleSheet.create(
     {
         entryStyle: {
             flex: 1,
-            borderColor: 'black',
-            borderWidth: 1
+            borderWidth: 2,
+            borderRadius: 5
+        },
+        componentGeneral:
+        {
+            flex: 1,
+            margin: 20,
+            justifyContent: 'space-between'
         },
         bold:
         {
-            fontWeight: 'bold',
-        },
+            fontWeight: 'bold'
+        }
     }
 )
 
