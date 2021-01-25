@@ -6,33 +6,30 @@
  * @flow strict-local
  */
 
-import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
-
-import {
-  Header,
-  Colors,
-} from 'react-native/Libraries/NewAppScreen';
+import 'react-native-gesture-handler';
+import * as  React from 'react';
+import {SafeAreaView,StyleSheet, ScrollView,View,Text,StatusBar,} from 'react-native';
+import { NavigationContainer, StackActions } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import {Header,Colors} from 'react-native/Libraries/NewAppScreen';
 import LoginComponent from './LoginComponent/loginComponent';
+import Annonces from './Annonce/annonce';
+import {SafeAreaProvider} from 'react-native-safe-area-context'
+import DetailAnnonce from './DetailAnnonce/detailAnnonce';
+
+const Stack = createStackNavigator();
 
 const App: () => React$Node = () => {
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic">
-          <LoginComponent/>
-        </ScrollView>
-      </SafeAreaView>
-    </>
+    <SafeAreaProvider>
+      <NavigationContainer>
+       <Stack.Navigator>
+         <Stack.Screen name="Login" component={LoginComponent}/>
+         <Stack.Screen name="Annonces" component={Annonces}/>
+         <Stack.Screen name="DetailAnnonce" component={DetailAnnonce}/>
+       </Stack.Navigator>
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 };
 
