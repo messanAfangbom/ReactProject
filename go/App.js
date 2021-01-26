@@ -12,10 +12,10 @@ import {SafeAreaView,StyleSheet, ScrollView,View,Text,StatusBar,} from 'react-na
 import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import {Header,Colors} from 'react-native/Libraries/NewAppScreen';
-import LoginComponent from './LoginComponent/loginComponent';
-import Annonces from './Annonce/annonce';
+import LoginComponent from './src/components/LoginComponent/loginComponent';
+import Annonces from './src/components/Annonce/annonce';
 import {SafeAreaProvider} from 'react-native-safe-area-context'
-import DetailAnnonce from './DetailAnnonce/detailAnnonce';
+import DetailAnnonce from './src/components/DetailAnnonce/detailAnnonce';
 
 const Stack = createStackNavigator();
 

@@ -8,8 +8,8 @@ const RenderCustomizeText = (props) => {
 }
 
 const LoginComponent = ({ navigation }) => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('messanafan@gmail.com');
+    const [password, setPassword] = useState('messan');
     const [messageEmail, setMessageEmail] = useState('');
     const [messageMdp, setMessageMdp] = useState('');
     const [shouldShow, setShouldShow] = useState(false);
@@ -22,7 +22,8 @@ const LoginComponent = ({ navigation }) => {
                 lieu: 'Bordeaux',
                 codePostal: '33000',
                 price: '15',
-                date: 'Aujourd\'hui a 20:00'
+                date: 'Aujourd\'hui a 20:00',
+                linkPicture: require('E:/React/go/resources/ballons/ballon_algerie.png')
             });
         } else {
             setMessageMdp('Votre identifiant ou votre mot de passe est incorrect');
