@@ -16,15 +16,18 @@ import LoginComponent from './src/components/LoginComponent/loginComponent';
 import Annonces from './src/components/Annonce/annonce';
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import DetailAnnonce from './src/components/DetailAnnonce/detailAnnonce';
-import Store from './src/store/configureStore'
 import { Provider } from 'react-redux';
 import SearchComponent from './src/components/search/searchComponent';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import AppLoading from 'expo-app-loading';
+import { createStore } from 'redux';
+import reducer from './src/store/configureStore'
+import favoriteAnnonce from './src/components/favoriteAnnonce/favoriteAnnonce';
 
+
+const myAppStore =  createStore(reducer);
 const Stack = createStackNavigator();
-
 export default function App() {
 
   const [isReady, setIsReady] = React.useState(false);
@@ -42,13 +45,14 @@ export default function App() {
     <SafeAreaProvider>
       { !isReady && <AppLoading></AppLoading>}
       {isReady &&
-        <Provider store={Store}>
+        <Provider store={myAppStore}>
           <NavigationContainer>
             <Stack.Navigator>
               <Stack.Screen name="Annonces" component={Annonces} />
               <Stack.Screen name="Login" component={LoginComponent} />
               <Stack.Screen name="DetailAnnonce" component={DetailAnnonce} />
               <Stack.Screen name="Rechercher" component={SearchComponent} />
+              <Stack.Screen name="FavoriteAnnonce" component={favoriteAnnonce}/>
             </Stack.Navigator>
           </NavigationContainer>
         </Provider>

@@ -1,5 +1,6 @@
-import { createStore } from 'redux';
+import { combineReducers, createStore } from 'redux';
 import listAnnonce from '../reducers/annoncesReducer';
 import login from '../reducers/loginReducer';
+import favoriteAnnonce from '../reducers/favoriteReducer';
 
-export default createStore(listAnnonce, login)
+ export default combineReducers({listAnnonce, login, favoriteAnnonce});

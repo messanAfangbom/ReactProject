@@ -19,7 +19,7 @@ const LoginComponent = (props) => {
     }
 
     function login() {
-        const action = { type: 'TOOGLE_LOGIN' };
+        const action = { type: 'TOOGLE_LOGIN'};
         props.dispatch(action);
     }
 
@@ -123,7 +123,7 @@ const styles = StyleSheet.create(
 )
 
 const mapStateToProps = (state) => {
-    return { connexionState: state.connexionState }
+    return { connexionState: state.login }
 }
 
 export default connect(mapStateToProps)(LoginComponent);

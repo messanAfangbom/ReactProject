@@ -1,36 +1,42 @@
-import { Item, Icon, Input, Footer, FooterTab, Button } from 'native-base';
+import { Item, Icon, Input, Footer, FooterTab, Button, Card, CardItem, Thumbnail, Left, Right, Body, Content } from 'native-base';
 import * as  React from 'react';
-import { View, Text, StyleSheet } from "react-native"
+import { View, Text, StyleSheet, Image } from "react-native"
+import { Card as PaperCard } from 'react-native-paper';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Card, Title, Paragraph } from 'react-native-paper';
 import { connect } from 'react-redux'
 
 
-const Annonces = (props) => {
+const FavoritesAnnonces = (props) => {
     return (
         <View style={{ flex: 1 }}>
             <ScrollView >
-                <View style={[styles.container]}>
-                    <Button large style={{ display: 'flex', flex: 1, borderRadius: 5, backgroundColor: 'white' }}
-                        onPress={() => props.navigation.navigate('Rechercher')} >
-                        <Icon type='EvilIcons' style={styles.colorFooter} active name='search' />
-                        <Text style={[styles.colorFooter, styles.title, { fontSize: 15 }]}>Rechercher sur le  boncoin</Text>
-                        <Icon type='Ionicons' style={styles.colorFooter} name='locate-outline' />
-                    </Button>
-                </View>
                 <View style={styles.container}>
-                    {props.annonces.annonces.map(annonce => {
+                    {props.favoriteAnnonce.favoriteAnnonce.map(annonce => {
                         return (
-                            <Card key={annonce.id} style={styles.cardStyle} onPress={() =>
+
+                            <Card key={annonce.id} onPress={() =>
                                 props.navigation.navigate('DetailAnnonce', { id: annonce.id })
                             }
                             >
-                                <Card.Cover source={annonce.linkPicture} />
-                                <Card.Content>
-                                    <Title style={styles.title}>{annonce.title}</Title>
-                                    <Paragraph style={[styles.colorBoncoin, styles.title]}>{annonce.price ? annonce.price : null} {annonce.price ? '€' : null}</Paragraph>
-                                    <Paragraph>{annonce.location}  {annonce.postalCode}</Paragraph>
-                                </Card.Content>
+
+                                <CardItem>
+                                    <Left>
+                                        <PaperCard.Cover style={styles.cardStyle} source={annonce.linkPicture}></PaperCard.Cover>
+                                    </Left>
+
+                                    <Right>
+                                        <Text style={styles.title}>{annonce.title}</Text>
+                                        <Text style={[styles.colorBoncoin, styles.title]}>{annonce.price ? annonce.price : null} {annonce.price ? '€' : null}</Text>
+                                        <Text>{annonce.location}  ({annonce.postalCode})</Text>
+                                    </Right>
+                                </CardItem>
+
+                                <CardItem >
+                                    <Button transparent full style={{width:300, marginLeft:20}} > 
+                                        <Icon active light type='MaterialCommunityIcons' name='android-messages' style={{color:'dodgerblue'}} />
+                                        <Text style={{color:'dodgerblue'}}>Envoyer un message</Text>
+                                    </Button>
+                                </CardItem>
                             </Card>
                         )
                     })}
@@ -46,8 +52,6 @@ const Annonces = (props) => {
                         () => {
                             if (!props.connexionState.connexionState) {
                                 props.navigation.navigate('Login');
-                            }else{
-                                props.navigation.navigate('FavoriteAnnonce');
                             }
                         }}>
                         <Icon type='Ionicons' name="heart-outline" style={styles.colorFooter} />
@@ -91,9 +95,6 @@ const Annonces = (props) => {
 const styles = StyleSheet.create(
     {
         container: {
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            justifyContent: 'space-between',
             marginHorizontal: 16,
             marginVertical: 10
         },
@@ -123,10 +124,11 @@ const styles = StyleSheet.create(
 )
 
 const mapStateToProps = (state) => {
-   return {
-       annonces :state.listAnnonce,
-       connexionState: state.login
-   }
+    return {
+        annonces: state.favoriteAnnonce,
+        connexionState: state.login,
+        favoriteAnnonce: state.favoriteAnnonce
+    }
 }
 
-export default connect(mapStateToProps)(Annonces);
+export default connect(mapStateToProps)(FavoritesAnnonces);

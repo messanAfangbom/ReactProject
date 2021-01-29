@@ -53,7 +53,7 @@ const SearchComponent = (props) => {
                 setInput(text);
               }}
               onSubmitEditing={() => {
-                setFilterArray(filterAnnoncesByTitle(props.annonces));
+                setFilterArray(filterAnnoncesByTitle(props.annonces.annonces));
               }} />
             {!is_Blank(input) &&
               <Button transparent onPress={() => setInput('')} >
@@ -123,7 +123,7 @@ const styles = StyleSheet.create(
   });
 
 const mapStateToProps = (state) => {
-  return { annonces: state.annonces }
+  return { annonces: state.listannonce}
 }
 
 

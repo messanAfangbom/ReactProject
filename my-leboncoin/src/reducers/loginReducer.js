@@ -7,8 +7,8 @@ function login(state=initialState, action)
         case 'TOOGLE_LOGIN':
             return nextState = {
                 ...state,
-                connexionState: !connexionState
-            } || state
+                connexionState: !state.connexionState
+            } || state;
         default:
             return state;
     }
