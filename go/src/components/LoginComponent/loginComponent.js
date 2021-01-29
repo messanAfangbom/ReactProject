@@ -16,15 +16,16 @@ const LoginComponent = ({ navigation }) => {
 
     const checkdata = () => {
         if (password === 'messan' && email === 'messanafan@gmail.com') {
-            navigation.navigate('DetailAnnonce', {
-                title: 'ballon-algérie',
-                description: 'Je vends ce ballon acheté il ya 15 jours mais jamais utilié',
-                lieu: 'Bordeaux',
-                codePostal: '33000',
-                price: '15',
-                date: 'Aujourd\'hui a 20:00',
-                linkPicture: require('E:/React/go/resources/ballons/ballon_algerie.png')
-            });
+            // navigation.navigate('DetailAnnonce', {
+            //     title: 'ballon-algérie',
+            //     description: 'Je vends ce ballon acheté il ya 15 jours mais jamais utilié',
+            //     lieu: 'Bordeaux',
+            //     codePostal: '33000',
+            //     price: '15',
+            //     date: 'Aujourd\'hui a 20:00',
+            //     linkPicture: require('E:/React/go/resources/ballons/ballon_algerie.png')
+            // });
+            navigation.navigate('Annonces');
         } else {
             setMessageMdp('Votre identifiant ou votre mot de passe est incorrect');
         }

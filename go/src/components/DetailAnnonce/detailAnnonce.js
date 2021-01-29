@@ -1,25 +1,26 @@
 import * as React from 'react'
 import { Image, View, ScrollView, StyleSheet, Text, StatusBar, } from 'react-native'
 import { Button, Icon, Footer, FooterTab, Item, Title, Subtitle } from 'native-base'
-import { Appbar } from 'react-native-paper';
+import { connect } from 'react-redux'
 
 
 const Separator = () => (
   <View style={styles.separator} />
 );
 
-const DetailAnnonce = ({ navigation, route }) => {
+const DetailAnnonce = ({ navigation, route, annonces }) => {
+  let currentAnnonce = annonces[route.params.id - 1];
   return (
     <View style={{ flex: 1 }} >
       <ScrollView style={styles.container}>
         <StatusBar backgroundColor='#FEF0E9' barStyle='default' translucent={false} ></StatusBar>
         <View>
-          <Image width='200' height='200' resizeMode="center" source={route.params.linkPicture} />
+          <Image width='200' height='200' resizeMode="center" source={currentAnnonce.linkPicture} />
         </View>
         <View style={styles.contentContainer}>
-          <Text style={[styles.contentContainer, styles.title]}>{route.params.title}</Text>
-          <Text style={[styles.contentContainer, styles.colorBoncoin, styles.title]}>{route.params.price} €</Text>
-          <Text style={styles.contentContainer}>{route.params.date}</Text>
+          <Text style={[styles.contentContainer, styles.title]}>{currentAnnonce.title}</Text>
+          <Text style={[styles.contentContainer, styles.colorBoncoin, styles.title]}>{currentAnnonce.price} €</Text>
+          <Text style={styles.contentContainer}>{currentAnnonce.date}</Text>
 
           <Button iconLeft full style={styles.buyButton}>
             <Icon light type='MaterialIcons' name='euro-symbol'></Icon>
@@ -30,7 +31,7 @@ const DetailAnnonce = ({ navigation, route }) => {
         <Separator />
         <View>
           <Text style={styles.title}>Description</Text>
-          <Text>{route.params.description}</Text>
+          <Text>{currentAnnonce.description}</Text>
         </View>
         <Separator />
         <View >
@@ -66,7 +67,7 @@ const DetailAnnonce = ({ navigation, route }) => {
         <View style={{ flex: 1, flexDirection: 'row' }}>
           <Item>
             <Icon type='FontAwesome' name='map-marker' />
-            <Text style={styles.title}>{route.params.lieu} ({route.params.codePostal})</Text>
+            <Text style={styles.title}>{currentAnnonce.location} ({currentAnnonce.postalCode})</Text>
           </Item>
         </View>
       </ScrollView>
@@ -130,5 +131,8 @@ const styles = StyleSheet.create({
     resizeMode: 'contain'
   }
 });
+const mapStateToProps = (state) => {
+  return { annonces: state.annonces }
+}
 
-export default DetailAnnonce;
+export default connect(mapStateToProps)(DetailAnnonce);
