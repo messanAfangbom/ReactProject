@@ -1,4 +1,5 @@
 import { createStore } from 'redux';
-import ListAnnonce from '../reducers/annoncesReduce';
+import listAnnonce from '../reducers/annoncesReducer';
+import login from '../reducers/loginReducer';
 
-export default createStore(ListAnnonce)
+export default createStore(listAnnonce, login)

@@ -9,14 +9,14 @@ import { connect } from 'react-redux'
 const Annonces = (props) => {
     return (
         <View style={{ flex: 1 }}>
-
             <ScrollView >
-                <View>
-                    <Item>
-                        <Icon type='EvilIcons' color='gray' active name='search' />
-                        <Text>Rechercher sur le  boncoin</Text>
-                        <Icon type='Ionicons' name='locate-outline' />
-                    </Item>
+                <View style={[styles.container]}>
+                    <Button large style={{ display: 'flex', flex: 1, borderRadius: 5, backgroundColor: 'white' }}
+                        onPress={() => props.navigation.navigate('Rechercher')} >
+                        <Icon type='EvilIcons' style={styles.colorFooter} active name='search' />
+                        <Text style={[styles.colorFooter, styles.title, { fontSize: 15 }]}>Rechercher sur le  boncoin</Text>
+                        <Icon type='Ionicons' style={styles.colorFooter} name='locate-outline' />
+                    </Button>
                 </View>
                 <View style={styles.container}>
                     {props.annonces.map(annonce => {
@@ -37,25 +37,44 @@ const Annonces = (props) => {
                 </View>
             </ScrollView>
             <Footer >
-                <FooterTab style={{backgroundColor:'snow'}}>
-                    <Button onPress={()=>props.navigation.navigate('Rechercher')}>
-                        <Icon type='FontAwesome' name='search' style={styles.colorBoncoin}/>
+                <FooterTab style={{ backgroundColor: 'whitesmoke' }}>
+                    <Button onPress={() => props.navigation.navigate('Rechercher')}>
+                        <Icon type='FontAwesome' name='search' style={styles.colorBoncoin} />
                         <Text style={styles.colorBoncoin}>Rechercher</Text>
                     </Button>
-                    <Button vertical>
+                    <Button vertical onPress={
+                        () => {
+                            if (!props.connexionState) {
+                                props.navigation.navigate('Login');
+                            }
+                        }}>
                         <Icon type='Ionicons' name="heart-outline" style={styles.colorFooter} />
                         <Text style={styles.colorFooter}>Favoris</Text>
                     </Button>
-                    <Button vertical>
+                    <Button vertical nPress={
+                        () => {
+                            if (!props.connexionState) {
+                                props.navigation.navigate('Login');
+                            }
+                        }}>
                         <Icon type='Octicons' name="diff-added" style={styles.colorFooter} />
                         <Text style={styles.colorFooter}>Publier</Text>
                     </Button>
-                   
-                    <Button vertical>
+                    <Button vertical nPress={
+                        () => {
+                            if (!props.connexionState) {
+                                props.navigation.navigate('Login');
+                            }
+                        }}>
                         <Icon active light type='MaterialCommunityIcons' name='android-messages' style={styles.colorFooter} />
                         <Text style={styles.colorFooter}>Messages</Text>
                     </Button>
-                    <Button vertical onPress={()=>props.navigation.navigate('Login')}>  
+                    <Button vertical onPress={
+                        () => {
+                            if (!props.connexionState) {
+                                props.navigation.navigate('Login');
+                            }
+                        }}>
                         <Icon type='AntDesign' name="user" style={styles.colorFooter} />
                         <Text style={styles.colorFooter}>Compte</Text>
                     </Button>
@@ -89,7 +108,7 @@ const styles = StyleSheet.create(
         },
         colorFooter:
         {
-            color:'gray'
+            color: 'gray'
         },
         title: {
             fontWeight: 'bold'
@@ -102,7 +121,10 @@ const styles = StyleSheet.create(
 )
 
 const mapStateToProps = (state) => {
-    return { annonces: state.annonces }
+    return {
+        annonces: state.annonces,
+        connexionState: state.connexionState
+    }
 }
 
 export default connect(mapStateToProps)(Annonces);

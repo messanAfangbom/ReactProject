@@ -2,7 +2,7 @@ import React, { Component, useState } from 'react';
 import { Container, Header, Left, Body, Right, Button, Icon, Item, Input } from 'native-base';
 import { Card, Title, Paragraph } from 'react-native-paper';
 import { connect } from 'react-redux'
-import { StyleSheet, View, ScrollView } from 'react-native';
+import { StyleSheet, View, ScrollView, Text} from 'react-native';
 
 
 const SearchComponent = (props) => {
@@ -16,21 +16,29 @@ const SearchComponent = (props) => {
       return false;
   }
 
+  function checkContainWord(tab)
+  {
+  
+  }
+
   function checkInputWords(annonce) {
     /* transform input String to an array of word */
     let inputToTab = input.split(" ");
-
+    let titleToTab = annonce.title.split(" ");
+    let regexExpression = new RegExp((titleToTab).join('|'), "i");
+  
     /* loop on the newTab in order to check if the title of annonce include a word of given input */
-    inputToTab.forEach(element => {
-      if (annonce.title.includes(element) && element.length > 2) {
+    for (let i = 0; i < inputToTab.length; i++)
+    {
+      if (regexExpression.test(inputToTab[i]) && inputToTab[i].length > 2) {
         return true;
       }
-    });
+    }
     return false;
   }
 
-  function filterAnnonceByTitle(annonce) {
-    return annonce.filter(checkInputWords)
+  function filterAnnoncesByTitle(annonces) {
+    return annonces.filter(checkInputWords)
   }
 
   return (
@@ -45,7 +53,7 @@ const SearchComponent = (props) => {
                 setInput(text);
               }}
               onSubmitEditing={() => {
-                setFilterArray(filterAnnonceByTitle(props.annonces));
+                setFilterArray(filterAnnoncesByTitle(props.annonces));
               }} />
             {!is_Blank(input) &&
               <Button transparent onPress={() => setInput('')} >
@@ -55,7 +63,7 @@ const SearchComponent = (props) => {
           </Item>
         </Body>
       </Header>
-      {!is_Blank(input) &&
+      { (filterArray.length != 0) &&
         <View style={{ flex: 1 }}>
           <ScrollView >
             <View style={styles.container}>
@@ -72,8 +80,8 @@ const SearchComponent = (props) => {
                       <Paragraph>{annonce.location}  {annonce.postalCode}</Paragraph>
                     </Card.Content>
                   </Card>
-                )
-              })}
+                )}
+              )}
             </View>
           </ScrollView>
         </View>

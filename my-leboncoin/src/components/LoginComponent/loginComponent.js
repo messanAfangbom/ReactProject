@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { TextInput, Button, Text, View, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
+import { connect } from 'react-redux';
 
-const RenderCustomizeText = (props) => {
-    return (
-        <Text style={{ color: 'red' }}>{props.text}</Text>
-    )
-}
-
-const LoginComponent = ({ navigation }) => {
+const LoginComponent = (props) => {
     const [email, setEmail] = useState('messanafan@gmail.com');
     const [password, setPassword] = useState('messan');
     const [messageEmail, setMessageEmail] = useState('');
@@ -16,19 +11,16 @@ const LoginComponent = ({ navigation }) => {
 
     const checkdata = () => {
         if (password === 'messan' && email === 'messanafan@gmail.com') {
-            // navigation.navigate('DetailAnnonce', {
-            //     title: 'ballon-algérie',
-            //     description: 'Je vends ce ballon acheté il ya 15 jours mais jamais utilié',
-            //     lieu: 'Bordeaux',
-            //     codePostal: '33000',
-            //     price: '15',
-            //     date: 'Aujourd\'hui a 20:00',
-            //     linkPicture: require('E:/React/go/resources/ballons/ballon_algerie.png')
-            // });
-            navigation.navigate('Annonces');
+            props.navigation.navigate('Annonces');
+            login();
         } else {
             setMessageMdp('Votre identifiant ou votre mot de passe est incorrect');
         }
+    }
+
+    function login() {
+        const action = { type: 'TOOGLE_LOGIN' };
+        props.dispatch(action);
     }
 
     function is_Blank(input) {
@@ -130,4 +122,9 @@ const styles = StyleSheet.create(
     }
 )
 
-export default LoginComponent;
+const mapStateToProps = (state) => {
+    return { connexionState: state.connexionState }
+}
+
+export default connect(mapStateToProps)(LoginComponent);
+

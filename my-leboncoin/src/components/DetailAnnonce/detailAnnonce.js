@@ -19,7 +19,7 @@ const DetailAnnonce = ({ navigation, route, annonces }) => {
         </View>
         <View style={styles.contentContainer}>
           <Text style={[styles.contentContainer, styles.title]}>{currentAnnonce.title}</Text>
-          <Text style={[styles.contentContainer, styles.colorBoncoin, styles.title]}>{currentAnnonce.price} €</Text>
+          <Text style={[styles.contentContainer, styles.colorBoncoin, styles.title]}>{currentAnnonce.price ? currentAnnonce.price :null} {currentAnnonce.price ? `€` :null}</Text>
           <Text style={styles.contentContainer}>{currentAnnonce.date}</Text>
 
           <Button iconLeft full style={styles.buyButton}>
